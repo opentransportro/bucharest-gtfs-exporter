@@ -15,3 +15,5 @@ jobs:
   include:
     - stage: generate feed
       script: npm install && node index.js 
+    - stage: deploy
+      script: ./scripts/archive-output.sh

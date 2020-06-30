@@ -11,7 +11,7 @@ cache:
 jobs:
   include:
     - stage: build
-      script: docker run --rm -e GH_REPO=$GH_REPO -e GH_TOKEN=$CI_USER_TOKEN -v ${PWD}/map:/opt/gtfs-exporter/map opentransport/gtfs-exporter:dev  gtfs-process --provider=api --url=bucharest --id=bucharest
+      script: docker run --rm -e GH_REPO=$GH_REPO -e GH_TOKEN=$CI_USER_TOKEN -v ${PWD}/map:/opt/gtfs-exporter/map opentransport/gtfs-exporter:latest  gtfs-process --provider=api --url=bucharest --id=bucharest
 
 notifications:
   email:

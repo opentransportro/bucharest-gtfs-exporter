@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set time zone to Europe/Bucharest
+        uses: zcong1993/setup-timezone@master
+        with:
+          timezone: "Europe/Bucharest"
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        env:
+          GH_REPO: ${{ secrets.GH_REPO }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
+          docker run --rm -e GH_REPO=$GH_REPO -e GH_TOKEN=$GH_TOKEN -v ${PWD}/map:/opt/gtfs-exporter/map opentransport/gtfs-exporter:latest  gtfs-process --provider=api --url=bucharest --id=bucharest

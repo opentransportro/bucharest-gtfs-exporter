@@ -38,4 +38,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
-          docker run --rm -e GH_REPO=$GH_REPO -e GH_TOKEN=$GH_TOKEN -v ${PWD}/map:/opt/gtfs-exporter/map opentransport/gtfs-exporter:latest  gtfs-process --provider=api --url=bucharest --id=bucharest
+          docker run --rm -e GH_REPO=$GH_REPO -e GH_TOKEN=$GH_TOKEN -v ${PWD}/map:/opt/gtfs-exporter/map opentransport/gtfs-exporter:prod  gtfs-process --provider=api --url=bucharest --id=bucharest
